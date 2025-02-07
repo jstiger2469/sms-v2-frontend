@@ -1,0 +1,140 @@
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import DashboardDataService from '../services/dashboard.service';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ChartDataLabels,
+);
+
+const ResponseRateBySenderTypeChart = () => {
+  const [chartData, setChartData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchResponseRateData = async () => {
+      try {
+        const response =
+          await DashboardDataService.getResponseRateBySenderType();
+        console.log('response', response);
+        const data = response.data;
+
+        // Sort data so Mentor appears first (in red), Student second (in blue)
+        const sortedData = data.sort((a, b) =>
+          a.senderType === 'Mentor' ? -1 : 1,
+        );
+
+        const labels = sortedData.map((item) => item.senderType); // Mentor, Student (sorted)
+        const responseRates = sortedData.map((item) => item.responseRate);
+
+        // Assign colors based on sender type
+        const backgroundColors = labels.map(
+          (label) => (label === 'Mentor' ? '#FF6384' : '#36A2EB'), // Red for Mentor, Blue for Student
+        );
+
+        setChartData({
+          labels,
+          datasets: [
+            {
+              label: 'Response Rate (%)',
+              data: responseRates,
+              backgroundColor: backgroundColors, // Apply the dynamic colors
+              borderWidth: 1,
+            },
+          ],
+        });
+      } catch (err) {
+        setError('Failed to fetch response rate data');
+      }
+    };
+
+    fetchResponseRateData();
+  }, []);
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
+  if (!chartData) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="w-full h-auto bg-white p-6 rounded-md mb-4">
+      <h2 className="text-xl font-bold text-gray-800 text-center mb-4">
+        Response Rates
+      </h2>
+      <div className="w-full h-[300px]">
+        <Bar
+          data={chartData}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false, // Hide legend for simplicity
+              },
+              datalabels: {
+                color: 'white',
+                font: {
+                  weight: 'bold',
+                  size: 14,
+                },
+                formatter: (value) => `${Math.round(value)}%`,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  display: false,
+                },
+                border: {
+                  display: false,
+                },
+              },
+              x: {
+                grid: {
+                  display: false,
+                },
+                ticks: {
+                  display: true,
+                  color: '#333',
+                },
+                border: {
+                  display: false,
+                },
+              },
+            },
+            elements: {
+              bar: {
+                borderRadius: 8,
+                borderWidth: 1,
+              },
+            },
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ResponseRateBySenderTypeChart;

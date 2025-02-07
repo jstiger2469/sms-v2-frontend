@@ -1,22 +1,21 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 
 const matchStore = create((set) => ({
   matches: [],
-  currentMatch: null,
-  currentIndex: null,
+  setMatches: (newMatches) => {
+    set((state) => {
+      console.log('Previous Zustand matches:', state.matches);
+      console.log('New matches to be set:', newMatches);
 
-  // Set the matches in the store only if the new matches are different
-  setMatches: (newMatches) => set((state) => {
-    console.log('setmatches')
-    // Check if the new data is actually different from the current state
-    if (JSON.stringify(state.matches) !== JSON.stringify(newMatches)) {
-      return { matches: newMatches };  // Update only if different
-    }
-    return {};  // No change if matches are the same
-  }),
+      if (JSON.stringify(state.matches) !== JSON.stringify(newMatches)) {
+        console.log('Updating Zustand store with new matches.');
+        return { matches: newMatches };
+      }
 
-  setActiveMatch: (match, index) => set({ currentMatch: match, currentIndex: index }),
-  reset: () => set({ currentMatch: null, currentIndex: null }),
+      console.log('No changes to Zustand store.');
+      return state;
+    });
+  },
 }));
 
 export default matchStore;

@@ -1,8 +1,8 @@
-// Team.tsx
 import React from 'react';
+import SendMessage from './SendMessage';
 
 function Messages() {
-  return <h1>Messages Page</h1>;
+  return <SendMessage />;
 }
 
 export default Messages;

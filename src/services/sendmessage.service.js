@@ -1,0 +1,33 @@
+import http from '../http-common';
+
+class SendMessageService {
+  // Get all mentors
+  // Fetch mentors
+  async getMentors() {
+    try {
+      const response = await http.get('/admin/mentors');
+      console.log('Mentors Data: ', response.data); // Log the mentors data
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching mentors: ', error);
+    }
+  }
+
+  // Fetch students
+  async getStudents() {
+    try {
+      const response = await http.get('/admin/students');
+      console.log('Students Data: ', response.data); // Log the students data
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching students: ', error);
+    }
+  }
+
+  // Send a message to a user
+  sendMessage(userId, message) {
+    return http.post('/admin/send-message', { userId, message });
+  }
+}
+
+export default new SendMessageService();

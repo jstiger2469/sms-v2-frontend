@@ -1,33 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './styles.css';
-import Navigation from './Navigation';
-import Dashboard from './Dashboard';
-import Matches from './Matches';
-import Messages from './Messages';
-import Calendar from './Calendar';
+import Navigation from './components/Navigation';
+import Dashboard from './components/Dashboard';
+import Matches from './components/Matches';
+import Users from './components/Users';
+import Messages from './components/Messages';
+import Scheduler from './components/Scheduler';
+
+import AuthProvider from './auth/AuthProvider'; // Import AuthProvider
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 const queryClient = new QueryClient();
+
 root.render(
-  //wrap client in queryProvider
   <QueryClientProvider client={queryClient}>
-  <Router>
-  <Navigation />
-    <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/team" element={<Matches />} />
-      <Route path="/Messages" element={<Messages />} />
-      <Route path="/calendar" element={<Calendar />} />
-    </Routes>
-  </Router>
-  </QueryClientProvider>
+    <BrowserRouter>
+      {/* Wrap the entire app with AuthProvider */}
+      <AuthProvider>
+        <Navigation />
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/matches" element={<Matches />} />
+          <Route path="/Users" element={<Users />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/scheduler" element={<Scheduler />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  </QueryClientProvider>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
