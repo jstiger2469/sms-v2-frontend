@@ -70,7 +70,7 @@ function MatchList() {
         {/* Flex container for Search Bar and Add Match Button */}
         <div className="flex items-center w-full sm:w-auto space-x-4">
           {/* Search Bar */}
-          <div className="relative w-full sm:w-60">
+          <div className="relative z-25 w-full sm:w-60">
             <input
               type="text"
               value={searchQuery}

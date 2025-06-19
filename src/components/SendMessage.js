@@ -48,7 +48,8 @@ const SendMessage = () => {
     setSuccessMessage('');
 
     try {
-      await SendMessageService.sendMessage(selectedUser._id, message);
+      console.log('selectedType', selectedType)
+      await SendMessageService.sendMessage(selectedUser._id, selectedUser.phone, message, selectedType);
       setSuccessMessage('Message sent successfully!');
       alert('Message sent successfully!');
       setSelectedUser(null);

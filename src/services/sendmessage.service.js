@@ -25,8 +25,8 @@ class SendMessageService {
   }
 
   // Send a message to a user
-  sendMessage(userId, message) {
-    return http.post('/admin/send-message', { userId, message });
+  sendMessage(userId, message, phone, selectedType) {
+    return http.post('/admin/send-message', { userId, message, phone, selectedType});
   }
 }
 
