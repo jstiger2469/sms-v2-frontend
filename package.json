@@ -1,70 +1,45 @@
 {
-  "name": "sms-v2",
+  "name": "sms-v2-nextjs",
   "version": "0.1.0",
-  "proxy": "https://sms.gomentor.online",
   "private": true,
+  "scripts": {
+    "dev": "next dev -p 3004",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+  },
   "dependencies": {
-    "@auth0/auth0-react": "^2.3.0",
+    "@auth0/nextjs-auth0": "^3.8.0",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tanstack/react-query": "^5.62.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "autoprefixer": "^9.8.8",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
     "heroicons": "^2.2.0",
-    "postcss": "^8.4.49",
+    "mongoose": "^8.9.6",
+    "next": "^15.3.4",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0",
-    "react-query": "^3.39.3",
-    "react-router-dom": "^7.0.2",
-    "react-scripts": "^5.0.1",
+    "react-icons": "^5.5.0",
     "socket.io-client": "^4.8.1",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "^3.4.16",
-    "web-vitals": "^2.1.4",
+    "twilio": "^5.4.2",
     "zustand": "^5.0.2"
   },
-  "scripts": {
-    "start": "react-scripts start --host 0.0.0.0",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.26.5",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^4.6.2"
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "prettier": "^3.4.2",
+    "typescript": "^5"
   }
 }
