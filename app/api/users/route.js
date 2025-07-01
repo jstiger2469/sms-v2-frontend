@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server'
-import { apiService } from '@/lib/api'
 
 // GET all users
 export async function GET() {
   try {
-    const users = await apiService.request('/admin/users');
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(`${backendUrl}/admin/users`);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const users = await res.json();
     return NextResponse.json(users);
   } catch (err) {
     console.error('Error fetching users:', err);
     return NextResponse.json(
-      { error: 'Error retrieving users' },
+      { error: 'Error retrieving users', details: err?.stack || err?.message || err },
       { status: 500 }
     );
   }
