@@ -5,7 +5,7 @@ class SendMessageService {
   // Fetch mentors
   async getMentors() {
     try {
-      const response = await http.get('/admin/mentors');
+      const response = await http.get('/mentors');
       console.log('Mentors Data: ', response.data); // Log the mentors data
       return response.data;
     } catch (error) {
@@ -16,7 +16,7 @@ class SendMessageService {
   // Fetch students
   async getStudents() {
     try {
-      const response = await http.get('/admin/students');
+      const response = await http.get('/students');
       console.log('Students Data: ', response.data); // Log the students data
       return response.data;
     } catch (error) {
