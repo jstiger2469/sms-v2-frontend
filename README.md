@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# SMS V2 - Next.js Version
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A mentor management and messaging system built with Next.js, MongoDB, and Twilio.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Authentication**: Auth0 integration
+- **Dashboard**: Overview of matches, users, and messages
+- **Matches**: Create and manage mentor-student matches
+- **Users**: View all students and mentors
+- **Messages**: View all sent messages
+- **Send SMS**: Send messages to mentors or students via Twilio
 
-### `npm start`
+## Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Install Dependencies
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+### 2. Environment Variables
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Create a `.env.local` file in the root directory with the following variables:
 
-### `npm run build`
+```env
+# MongoDB
+MONGODB_URL=your_mongodb_connection_string
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Auth0
+AUTH0_SECRET=your_auth0_secret
+AUTH0_BASE_URL=http://localhost:3000
+AUTH0_ISSUER_BASE_URL=https://your-domain.auth0.com
+AUTH0_CLIENT_ID=your_auth0_client_id
+AUTH0_CLIENT_SECRET=your_auth0_client_secret
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### 3. Run Development Server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm run dev
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 4. Deploy to Vercel
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+vercel --prod
+```
 
-## Learn More
+Make sure to add all environment variables in your Vercel dashboard.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## API Routes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `GET /api/dashboard` - Dashboard statistics
+- `GET /api/matches` - Get all matches
+- `POST /api/matches` - Create a new match
+- `GET /api/matches/[id]` - Get specific match
+- `DELETE /api/matches/[id]` - Delete a match
+- `GET /api/messages` - Get all messages
+- `POST /api/messages` - Send admin SMS
+- `GET /api/users` - Get all users (students and mentors)
+- `POST /api/send-sms` - Send SMS via Twilio
 
-### Code Splitting
+## Pages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `/` - Redirects to dashboard or login
+- `/login` - Auth0 login page
+- `/dashboard` - Main dashboard with statistics
+- `/matches` - View and manage matches
+- `/users` - View all students and mentors
+- `/messages` - View all messages
+- `/send-message` - Send SMS to users
 
-### Analyzing the Bundle Size
+## Database Models
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Match**: Links students and mentors
+- **Student**: Student information
+- **Mentor**: Mentor information  
+- **Message**: Message records
 
-### Making a Progressive Web App
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: Next.js API Routes, MongoDB with Mongoose
+- **Authentication**: Auth0
+- **SMS**: Twilio
+- **Styling**: Tailwind CSS, Headless UI
