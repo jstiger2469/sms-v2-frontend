@@ -25,9 +25,17 @@ function AddMatchModal({ onClose }) {
     }
   }
 
+  const isValidPhone = (phone) => typeof phone === 'string' && phone.replace(/\D/g, '').length >= 10;
+
   const handleSubmit = async () => {
     setLoading(true)
     setError('')
+    // Frontend phone validation
+    if (!isValidPhone(studentData.phone) || !isValidPhone(mentorData.phone)) {
+      setError('Both student and mentor must have valid phone numbers with at least 10 digits.')
+      setLoading(false)
+      return
+    }
     try {
       const data = { studentData, mentorData }
       const response = await fetch('/api/matches', {
