@@ -26,11 +26,12 @@ function AddMatchModal({ onClose }) {
   }
 
   const isValidPhone = (phone) => typeof phone === 'string' && phone.replace(/\D/g, '').length >= 10;
+  const studentPhoneError = studentData.phone && !isValidPhone(studentData.phone) ? 'Phone must have at least 10 digits.' : '';
+  const mentorPhoneError = mentorData.phone && !isValidPhone(mentorData.phone) ? 'Phone must have at least 10 digits.' : '';
 
   const handleSubmit = async () => {
     setLoading(true)
     setError('')
-    // Frontend phone validation
     if (!isValidPhone(studentData.phone) || !isValidPhone(mentorData.phone)) {
       setError('Both student and mentor must have valid phone numbers with at least 10 digits.')
       setLoading(false)
@@ -62,6 +63,8 @@ function AddMatchModal({ onClose }) {
     }
   }
 
+  const isFormValid = isValidPhone(studentData.phone) && isValidPhone(mentorData.phone) && studentData.firstName && studentData.lastName && mentorData.firstName && mentorData.lastName;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-2/3">
@@ -86,6 +89,9 @@ function AddMatchModal({ onClose }) {
                   value={studentData[field]}
                   onChange={(e) => handleInputChange(e, 'student')}
                 />
+                {field === 'phone' && studentPhoneError && (
+                  <span className="text-red-500 text-xs">{studentPhoneError}</span>
+                )}
               </div>
             ))}
           </div>
@@ -108,6 +114,9 @@ function AddMatchModal({ onClose }) {
                   value={mentorData[field]}
                   onChange={(e) => handleInputChange(e, 'mentor')}
                 />
+                {field === 'phone' && mentorPhoneError && (
+                  <span className="text-red-500 text-xs">{mentorPhoneError}</span>
+                )}
               </div>
             ))}
           </div>
@@ -130,7 +139,7 @@ function AddMatchModal({ onClose }) {
             className={`px-4 py-2 rounded-md text-white ${
               loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
             }`}
-            disabled={loading}
+            disabled={loading || !isFormValid}
           >
             {loading ? 'Creating...' : 'Create Match'}
           </button>
