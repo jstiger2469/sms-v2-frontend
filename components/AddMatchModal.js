@@ -38,7 +38,16 @@ function AddMatchModal({ onClose }) {
       return
     }
     try {
-      const data = { studentData, mentorData }
+      // Normalize phone numbers to digits only
+      const normalizedStudentData = {
+        ...studentData,
+        phone: studentData.phone.replace(/\D/g, ''),
+      };
+      const normalizedMentorData = {
+        ...mentorData,
+        phone: mentorData.phone.replace(/\D/g, ''),
+      };
+      const data = { studentData: normalizedStudentData, mentorData: normalizedMentorData };
       const response = await fetch('/api/matches', {
         method: 'POST',
         headers: {
