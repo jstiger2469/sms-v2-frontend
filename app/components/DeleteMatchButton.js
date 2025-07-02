@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MatchService from '../../src/services/match.service';
+import MatchService from '../services/match.service';
 import { useQueryClient } from '@tanstack/react-query';
 
 const DeleteButton = ({ matchId, onDelete }) => {

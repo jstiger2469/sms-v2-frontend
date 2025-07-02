@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import DeleteMatchButton from './DeleteMatchButton';
-import MatchService from '../../src/services/match.service.js';
+import MatchService from '../services/match.service.js';
 
 function MatchPair({ match, onMatchDeleted }) {
   const [isExpanded, setIsExpanded] = useState(false);
