@@ -163,12 +163,14 @@ const SendMessage = () => {
         </h2>
 
         {/* Debug Info */}
+        {/*
         <div className="mb-4 p-3 bg-gray-100 rounded text-sm">
           <p><strong>Debug Info:</strong></p>
           <p>Auth0 User ID: {user?.sub || 'Not loaded'}</p>
           <p>Sender ID: {senderId || 'Not found'}</p>
           <p>Selected User: {selectedUser ? `${selectedUser.firstName} ${selectedUser.lastName}` : 'None'}</p>
         </div>
+        */}
 
         {/* Dropdowns Wrapper */}
         <div className="space-y-4">
