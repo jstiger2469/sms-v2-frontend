@@ -6,7 +6,7 @@ const Admin = require('../sms-v2-backend/server/models/Admin');
 require('../sms-v2-backend/server/db/connection');
 
 // Your Auth0 ID from the debug info
-const AUTH0_ID = 'auth0|60123c2d3b2d340069d0cb02';
+const AUTH0_ID = 'auth0|6864c18ea8d6c3e41bc89571';
 
 async function createAdmin() {
   try {
