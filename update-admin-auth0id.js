@@ -2,11 +2,11 @@
 // Run this with: node update-admin-auth0id.js
 
 const mongoose = require('mongoose');
-const Admin = require('./sms-v2-backend/server/models/Admin');
-require('./sms-v2-backend/server/db/connection');
+const Admin = require('../sms-v2-backend/server/models/Admin');
+require('../sms-v2-backend/server/db/connection');
 
 // Replace this with your actual Auth0 ID from the debug info
-const NEW_AUTH0_ID = 'YOUR_AUTH0_ID_HERE'; // Replace this!
+const NEW_AUTH0_ID = 'auth0|60123c2d3b2d340069d0cb02'; // Replace this!
 
 async function updateAdminAuth0Id() {
   try {
