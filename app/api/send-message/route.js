@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export async function POST(req) {
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sms-v2-backend-production.up.railway.app'
   const body = await req.json()
   const res = await fetch(`${backendUrl}/admin/send-message`, {
     method: 'POST',

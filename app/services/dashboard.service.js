@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://sms-v2-backend-production.up.railway.app';
 
 const getTotalMessages = async () => {
   return axios.get('/api/dashboard/total-messages');
