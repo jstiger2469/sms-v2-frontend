@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DeleteMatchButton from './DeleteMatchButton';
 import MatchService from '../services/match.service.js';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 function MatchPair({ match, onMatchDeleted }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -138,17 +139,27 @@ function MatchPair({ match, onMatchDeleted }) {
 
           {/* Basic Match Info */}
           <div className="flex flex-col gap-2 mb-4">
-            <div className="text-lg font-medium text-gray-700">
+            <div className="text-lg font-medium text-gray-700 flex items-center">
               <strong>Mentor: </strong>
-              <span className="text-gray-600">
+              <span className="text-gray-600 ml-1">
                 {match.mentor?.firstName} {match.mentor?.lastName}
               </span>
+              {match.mentorOptIn ? (
+                <FaCheckCircle className="text-green-500 ml-2" title="Mentor opted in" />
+              ) : (
+                <FaTimesCircle className="text-gray-400 ml-2" title="Mentor not opted in" />
+              )}
             </div>
-            <div className="text-lg font-medium text-gray-700">
+            <div className="text-lg font-medium text-gray-700 flex items-center">
               <strong>Student: </strong>
-              <span className="text-gray-600">
+              <span className="text-gray-600 ml-1">
                 {match.student?.firstName} {match.student?.lastName}
               </span>
+              {match.studentOptIn ? (
+                <FaCheckCircle className="text-green-500 ml-2" title="Student opted in" />
+              ) : (
+                <FaTimesCircle className="text-gray-400 ml-2" title="Student not opted in" />
+              )}
             </div>
           </div>
 
