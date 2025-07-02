@@ -20,7 +20,7 @@ export async function POST(req) {
         role: 'admin'
       }
       
-      const createdAdmin = await apiService.request('/admin/create-user', {
+      const createdAdmin = await apiService.request('/api/admin/create-admin', {
         method: 'POST',
         body: JSON.stringify(newAdmin)
       })
