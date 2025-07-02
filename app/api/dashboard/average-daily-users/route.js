@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server'
+import { apiService } from '@/lib/api'
 
 export async function GET() {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
-    const res = await fetch(`${backendUrl}/dashboard/average-daily-users`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
+    const data = await apiService.request('/dashboard/average-daily-users');
     return NextResponse.json(data);
   } catch (err) {
     console.error('Error fetching average daily users:', err);

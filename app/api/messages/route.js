@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server'
+import { apiService } from '@/lib/api'
 
 // GET all messages
 export async function GET(req) {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = parseInt(searchParams.get('limit')) || 20;
-    const res = await fetch(`${backendUrl}/messages/messages?page=${page}&limit=${limit}`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
+    const data = await apiService.request(`/messages/messages?page=${page}&limit=${limit}`);
     return NextResponse.json(data);
   } catch (err) {
     console.error('Error fetching messages in API route:', err);

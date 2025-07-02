@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server'
+import { apiService } from '@/lib/api'
 
 // GET all users
 export async function GET() {
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
-    const res = await fetch(`${backendUrl}/admin/users`);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const users = await res.json();
+    const users = await apiService.request('/admin/users');
     return NextResponse.json(users);
   } catch (err) {
     console.error('Error fetching users:', err);

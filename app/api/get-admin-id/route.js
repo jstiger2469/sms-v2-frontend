@@ -1,12 +1,16 @@
 import { NextResponse } from 'next/server'
+import { apiService } from '@/lib/api'
 
 export async function POST(req) {
-  const { auth0id } = await req.json()
-  const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://sms-v2-backend-production.up.railway.app'
-  const res = await fetch(`${backendUrl}/admin/admin-by-auth0id/${auth0id}`)
-  const data = await res.json()
-  if (!res.ok) {
-    return NextResponse.json({ error: data.error || 'Not found' }, { status: res.status })
+  try {
+    const { auth0id } = await req.json()
+    const data = await apiService.request(`/admin/admin-by-auth0id/${auth0id}`)
+    return NextResponse.json(data)
+  } catch (err) {
+    console.error('Error fetching admin by auth0id:', err)
+    return NextResponse.json(
+      { error: 'Admin not found' },
+      { status: 404 }
+    )
   }
-  return NextResponse.json(data)
 } 
