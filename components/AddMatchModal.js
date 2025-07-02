@@ -65,6 +65,13 @@ function AddMatchModal({ onClose }) {
 
   const isFormValid = isValidPhone(studentData.phone) && isValidPhone(mentorData.phone) && studentData.firstName && studentData.lastName && mentorData.firstName && mentorData.lastName;
 
+  function formatPhoneNumber(value) {
+    const phone = value.replace(/\D/g, '');
+    if (phone.length <= 3) return phone;
+    if (phone.length <= 6) return `(${phone.slice(0,3)}) ${phone.slice(3)}`;
+    return `(${phone.slice(0,3)}) ${phone.slice(3,6)}-${phone.slice(6,10)}`;
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-2/3">
@@ -86,7 +93,7 @@ function AddMatchModal({ onClose }) {
                   type="text"
                   name={field}
                   className="w-full p-2 border rounded-md"
-                  value={studentData[field]}
+                  value={field === 'phone' ? formatPhoneNumber(studentData[field]) : studentData[field]}
                   onChange={(e) => handleInputChange(e, 'student')}
                   {...(field === 'phone' ? { maxLength: 10 } : {})}
                 />
@@ -112,7 +119,7 @@ function AddMatchModal({ onClose }) {
                   type="text"
                   name={field}
                   className="w-full p-2 border rounded-md"
-                  value={mentorData[field]}
+                  value={field === 'phone' ? formatPhoneNumber(mentorData[field]) : mentorData[field]}
                   onChange={(e) => handleInputChange(e, 'mentor')}
                   {...(field === 'phone' ? { maxLength: 10 } : {})}
                 />
