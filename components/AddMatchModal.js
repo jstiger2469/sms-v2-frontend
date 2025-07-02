@@ -95,7 +95,6 @@ function AddMatchModal({ onClose }) {
                   className="w-full p-2 border rounded-md"
                   value={field === 'phone' ? formatPhoneNumber(studentData[field]) : studentData[field]}
                   onChange={(e) => handleInputChange(e, 'student')}
-                  {...(field === 'phone' ? { maxLength: 10 } : {})}
                 />
                 {field === 'phone' && studentPhoneError && (
                   <span className="text-red-500 text-xs">{studentPhoneError}</span>
@@ -121,7 +120,6 @@ function AddMatchModal({ onClose }) {
                   className="w-full p-2 border rounded-md"
                   value={field === 'phone' ? formatPhoneNumber(mentorData[field]) : mentorData[field]}
                   onChange={(e) => handleInputChange(e, 'mentor')}
-                  {...(field === 'phone' ? { maxLength: 10 } : {})}
                 />
                 {field === 'phone' && mentorPhoneError && (
                   <span className="text-red-500 text-xs">{mentorPhoneError}</span>
