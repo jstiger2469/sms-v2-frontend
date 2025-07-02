@@ -13,7 +13,6 @@ const navigation = [
   { name: 'Users', to: '/users', icon: UsersIcon },
   { name: 'Messages', to: '/messages', icon: ChatBubbleLeftRightIcon },
   { name: 'Send Message', to: '/send-message', icon: PaperAirplaneIcon },
-  { name: 'Scheduler', to: '/scheduler', icon: CalendarDaysIcon },
 ]
 
 function classNames(...classes) {
