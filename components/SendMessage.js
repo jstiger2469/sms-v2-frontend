@@ -180,7 +180,7 @@ const SendMessage = () => {
               htmlFor="userType"
               className="block text-sm font-medium text-gray-600"
             >
-              Select User Type
+              Select Recipient Type
             </label>
             <select
               id="userType"
