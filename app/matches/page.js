@@ -40,12 +40,14 @@ export default function Matches() {
   useEffect(() => {
     if (matches.length > 0) {
       const searchQueryLower = searchQuery.toLowerCase()
-      const filtered = matches.filter(
+       const filtered = matches.filter(
         (match) =>
           match.mentor?.firstName?.toLowerCase().includes(searchQueryLower) ||
           match.student?.firstName?.toLowerCase().includes(searchQueryLower) ||
           match.mentor?.lastName?.toLowerCase().includes(searchQueryLower) ||
-          match.student?.lastName?.toLowerCase().includes(searchQueryLower)
+           match.student?.lastName?.toLowerCase().includes(searchQueryLower) ||
+           match.mentor?.phone?.toLowerCase().includes(searchQueryLower) ||
+           match.student?.phone?.toLowerCase().includes(searchQueryLower)
       )
       setFilteredMatches(filtered)
     }

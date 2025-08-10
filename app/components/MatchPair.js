@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DeleteMatchButton from './DeleteMatchButton';
 import MatchService from '../services/match.service.js';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { apiService } from '@/lib/api';
 
 function MatchPair({ match, onMatchDeleted }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -11,6 +12,10 @@ function MatchPair({ match, onMatchDeleted }) {
   const [isNewestFirst, setIsNewestFirst] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [mentorPhone, setMentorPhone] = useState(match.mentor?.phone || '');
+  const [studentPhone, setStudentPhone] = useState(match.student?.phone || '');
+  const [savingMentor, setSavingMentor] = useState(false);
+  const [savingStudent, setSavingStudent] = useState(false);
 
   const toggleMessages = () => setIsExpanded((prev) => !prev);
 
@@ -150,6 +155,32 @@ function MatchPair({ match, onMatchDeleted }) {
                 <FaTimesCircle className="text-gray-400 ml-2" title="Mentor not opted in" />
               )}
             </div>
+            <div className="text-sm text-gray-700 flex items-center gap-2">
+              <label className="font-medium">Phone:</label>
+              <input
+                type="tel"
+                className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-48"
+                value={mentorPhone}
+                onChange={(e) => setMentorPhone(e.target.value)}
+              />
+              <button
+                onClick={async () => {
+                  try {
+                    setSavingMentor(true);
+                    setError('');
+                    await apiService.updateMentorPhone(match.mentor?._id, mentorPhone);
+                  } catch (err) {
+                    setError('Failed to update mentor phone');
+                  } finally {
+                    setSavingMentor(false);
+                  }
+                }}
+                disabled={savingMentor || !match.mentor?._id}
+                className="px-3 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+              >
+                {savingMentor ? 'Saving...' : 'Save'}
+              </button>
+            </div>
             <div className="text-lg font-medium text-gray-700 flex items-center">
               <strong>Student: </strong>
               <span className="text-gray-600 ml-1">
@@ -160,6 +191,32 @@ function MatchPair({ match, onMatchDeleted }) {
               ) : (
                 <FaTimesCircle className="text-gray-400 ml-2" title="Student not opted in" />
               )}
+            </div>
+            <div className="text-sm text-gray-700 flex items-center gap-2">
+              <label className="font-medium">Phone:</label>
+              <input
+                type="tel"
+                className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-48"
+                value={studentPhone}
+                onChange={(e) => setStudentPhone(e.target.value)}
+              />
+              <button
+                onClick={async () => {
+                  try {
+                    setSavingStudent(true);
+                    setError('');
+                    await apiService.updateStudentPhone(match.student?._id, studentPhone);
+                  } catch (err) {
+                    setError('Failed to update student phone');
+                  } finally {
+                    setSavingStudent(false);
+                  }
+                }}
+                disabled={savingStudent || !match.student?._id}
+                className="px-3 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+              >
+                {savingStudent ? 'Saving...' : 'Save'}
+              </button>
             </div>
           </div>
 
