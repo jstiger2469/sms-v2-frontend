@@ -20,6 +20,8 @@ function MatchPair({ match, onMatchDeleted }) {
   const [resendingStudent, setResendingStudent] = useState(false);
   const [mentorResendMsg, setMentorResendMsg] = useState('');
   const [studentResendMsg, setStudentResendMsg] = useState('');
+  const [mentorResendStatus, setMentorResendStatus] = useState(null);
+  const [studentResendStatus, setStudentResendStatus] = useState(null);
 
   const toggleMessages = () => setIsExpanded((prev) => !prev);
 
@@ -188,11 +190,22 @@ function MatchPair({ match, onMatchDeleted }) {
                 onClick={async () => {
                   try {
                     setMentorResendMsg('');
+                    setMentorResendStatus(null);
                     setResendingMentor(true);
                     await apiService.resendOptInForRole(match._id, 'mentor');
-                    setMentorResendMsg('Opt-in resent to mentor.');
+                    setMentorResendMsg('Opt-in message sent to mentor.');
+                    setMentorResendStatus('success');
+                    setTimeout(() => {
+                      setMentorResendMsg('');
+                      setMentorResendStatus(null);
+                    }, 3000);
                   } catch (err) {
                     setMentorResendMsg('Failed to resend to mentor.');
+                    setMentorResendStatus('error');
+                    setTimeout(() => {
+                      setMentorResendMsg('');
+                      setMentorResendStatus(null);
+                    }, 4000);
                   } finally {
                     setResendingMentor(false);
                   }
@@ -204,7 +217,15 @@ function MatchPair({ match, onMatchDeleted }) {
               </button>
             </div>
             {mentorResendMsg && (
-              <div className="text-xs text-gray-600 mt-1">{mentorResendMsg}</div>
+              <div
+                className={`mt-2 text-xs rounded px-2 py-1 border ${
+                  mentorResendStatus === 'success'
+                    ? 'bg-green-50 text-green-700 border-green-200'
+                    : 'bg-red-50 text-red-700 border-red-200'
+                }`}
+              >
+                {mentorResendMsg}
+              </div>
             )}
             <div className="text-lg font-medium text-gray-700 flex items-center">
               <strong>Student: </strong>
@@ -246,11 +267,22 @@ function MatchPair({ match, onMatchDeleted }) {
                 onClick={async () => {
                   try {
                     setStudentResendMsg('');
+                    setStudentResendStatus(null);
                     setResendingStudent(true);
                     await apiService.resendOptInForRole(match._id, 'student');
-                    setStudentResendMsg('Opt-in resent to student.');
+                    setStudentResendMsg('Opt-in message sent to student.');
+                    setStudentResendStatus('success');
+                    setTimeout(() => {
+                      setStudentResendMsg('');
+                      setStudentResendStatus(null);
+                    }, 3000);
                   } catch (err) {
                     setStudentResendMsg('Failed to resend to student.');
+                    setStudentResendStatus('error');
+                    setTimeout(() => {
+                      setStudentResendMsg('');
+                      setStudentResendStatus(null);
+                    }, 4000);
                   } finally {
                     setResendingStudent(false);
                   }
@@ -262,7 +294,15 @@ function MatchPair({ match, onMatchDeleted }) {
               </button>
             </div>
             {studentResendMsg && (
-              <div className="text-xs text-gray-600 mt-1">{studentResendMsg}</div>
+              <div
+                className={`mt-2 text-xs rounded px-2 py-1 border ${
+                  studentResendStatus === 'success'
+                    ? 'bg-green-50 text-green-700 border-green-200'
+                    : 'bg-red-50 text-red-700 border-red-200'
+                }`}
+              >
+                {studentResendMsg}
+              </div>
             )}
           </div>
 
