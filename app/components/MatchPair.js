@@ -18,7 +18,8 @@ function MatchPair({ match, onMatchDeleted }) {
   const [savingStudent, setSavingStudent] = useState(false);
   const [resendingMentor, setResendingMentor] = useState(false);
   const [resendingStudent, setResendingStudent] = useState(false);
-  const [resendNotice, setResendNotice] = useState('');
+  const [mentorResendMsg, setMentorResendMsg] = useState('');
+  const [studentResendMsg, setStudentResendMsg] = useState('');
 
   const toggleMessages = () => setIsExpanded((prev) => !prev);
 
@@ -183,7 +184,28 @@ function MatchPair({ match, onMatchDeleted }) {
               >
                 {savingMentor ? 'Saving...' : 'Save'}
               </button>
+              <button
+                onClick={async () => {
+                  try {
+                    setMentorResendMsg('');
+                    setResendingMentor(true);
+                    await apiService.resendOptInForRole(match._id, 'mentor');
+                    setMentorResendMsg('Opt-in resent to mentor.');
+                  } catch (err) {
+                    setMentorResendMsg('Failed to resend to mentor.');
+                  } finally {
+                    setResendingMentor(false);
+                  }
+                }}
+                className="px-3 py-1 bg-green-600 text-white rounded disabled:opacity-50"
+                disabled={resendingMentor}
+              >
+                {resendingMentor ? 'Resending…' : 'Resend Opt-In'}
+              </button>
             </div>
+            {mentorResendMsg && (
+              <div className="text-xs text-gray-600 mt-1">{mentorResendMsg}</div>
+            )}
             <div className="text-lg font-medium text-gray-700 flex items-center">
               <strong>Student: </strong>
               <span className="text-gray-600 ml-1">
@@ -220,56 +242,30 @@ function MatchPair({ match, onMatchDeleted }) {
               >
                 {savingStudent ? 'Saving...' : 'Save'}
               </button>
-            </div>
-          </div>
-
-          {/* Resend Opt-In per user */}
-          <div className="flex items-center justify-between bg-gray-100 border rounded p-3 mb-4">
-            <div className="text-sm text-gray-700">
-              Resend opt-in to a specific person.
-            </div>
-            <div className="flex gap-2">
               <button
                 onClick={async () => {
                   try {
-                    setResendNotice('');
-                    setResendingMentor(true);
-                    await apiService.resendOptInForRole(match._id, 'mentor');
-                    setResendNotice('Opt-in resent to mentor.');
-                  } catch (err) {
-                    setResendNotice('Failed to resend to mentor.');
-                  } finally {
-                    setResendingMentor(false);
-                  }
-                }}
-                className="px-3 py-1 bg-green-600 text-white rounded disabled:opacity-50"
-                disabled={resendingMentor}
-              >
-                {resendingMentor ? 'Resending…' : 'Resend to Mentor'}
-              </button>
-              <button
-                onClick={async () => {
-                  try {
-                    setResendNotice('');
+                    setStudentResendMsg('');
                     setResendingStudent(true);
                     await apiService.resendOptInForRole(match._id, 'student');
-                    setResendNotice('Opt-in resent to student.');
+                    setStudentResendMsg('Opt-in resent to student.');
                   } catch (err) {
-                    setResendNotice('Failed to resend to student.');
+                    setStudentResendMsg('Failed to resend to student.');
                   } finally {
                     setResendingStudent(false);
                   }
                 }}
-                className="px-3 py-1 bg-blue-600 text-white rounded disabled:opacity-50"
+                className="px-3 py-1 bg-green-600 text-white rounded disabled:opacity-50"
                 disabled={resendingStudent}
               >
-                {resendingStudent ? 'Resending…' : 'Resend to Student'}
+                {resendingStudent ? 'Resending…' : 'Resend Opt-In'}
               </button>
             </div>
+            {studentResendMsg && (
+              <div className="text-xs text-gray-600 mt-1">{studentResendMsg}</div>
+            )}
           </div>
-          {resendNotice && (
-            <div className="mb-4 text-sm text-gray-700">{resendNotice}</div>
-          )}
+
 
           {/* Filters */}
           <div className="flex flex-col md:flex-row gap-4 items-center mb-4">
