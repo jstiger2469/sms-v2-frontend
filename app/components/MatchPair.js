@@ -192,7 +192,7 @@ function MatchPair({ match, onMatchDeleted }) {
                     setMentorResendMsg('');
                     setMentorResendStatus(null);
                     setResendingMentor(true);
-                    await apiService.resendOptInForRole(match._id, 'mentor');
+                    await fetch(`/api/matches/${match._id}/resend-opt-in/mentor`, { method: 'POST' });
                     setMentorResendMsg('Opt-in message sent to mentor.');
                     setMentorResendStatus('success');
                     setTimeout(() => {
@@ -269,7 +269,7 @@ function MatchPair({ match, onMatchDeleted }) {
                     setStudentResendMsg('');
                     setStudentResendStatus(null);
                     setResendingStudent(true);
-                    await apiService.resendOptInForRole(match._id, 'student');
+                    await fetch(`/api/matches/${match._id}/resend-opt-in/student`, { method: 'POST' });
                     setStudentResendMsg('Opt-in message sent to student.');
                     setStudentResendStatus('success');
                     setTimeout(() => {

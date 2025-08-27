@@ -1,1 +1,3 @@
-{}
+{
+  "/api/test-auth0-config/route": "app/api/test-auth0-config/route.js"
+}
