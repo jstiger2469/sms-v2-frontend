@@ -22,3 +22,19 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vercel
+
+# next build output
+.next
+
+# local env backups
+.env.local.backup
+
+# data exports/seeds (PII)
+matches-export.json
+matches-export-array.json
+matches-transformed.json
+matches-seed.json
+mentors-seed.json
+students-seed.json
+messages-seed.json
+*-seed.json
