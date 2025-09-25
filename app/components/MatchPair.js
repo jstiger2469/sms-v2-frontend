@@ -188,7 +188,12 @@ function MatchPair({ match, onMatchDeleted }) {
                     setSavingMentor(true);
                     setError('');
                     const digits = String(mentorPhone || '').replace(/\D/g, '');
-                    await apiService.updateMentorPhone(match.mentor?._id, digits);
+                    const res = await fetch(`/api/mentors/${match.mentor?._id}`, {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ phone: digits })
+                    });
+                    if (!res.ok) throw new Error('Failed to update mentor phone');
                     setMentorPhone(digits);
                   } catch (err) {
                     setError('Failed to update mentor phone');
@@ -280,7 +285,12 @@ function MatchPair({ match, onMatchDeleted }) {
                     setSavingStudent(true);
                     setError('');
                     const digits = String(studentPhone || '').replace(/\D/g, '');
-                    await apiService.updateStudentPhone(match.student?._id, digits);
+                    const res = await fetch(`/api/students/${match.student?._id}`, {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ phone: digits })
+                    });
+                    if (!res.ok) throw new Error('Failed to update student phone');
                     setStudentPhone(digits);
                   } catch (err) {
                     setError('Failed to update student phone');
