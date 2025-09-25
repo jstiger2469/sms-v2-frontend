@@ -295,7 +295,15 @@ function MatchPair({ match, onMatchDeleted }) {
                     setStudentResendMsg('');
                     setStudentResendStatus(null);
                     setResendingStudent(true);
-                    await fetch(`/api/matches/${match._id}/resend-opt-in/student`, { method: 'POST' });
+                    const res = await fetch(`/api/matches/${match._id}/resend-opt-in/student`, { method: 'POST' });
+                    if (!res.ok) {
+                      let msg = 'Failed to resend to student.';
+                      try {
+                        const data = await res.json();
+                        if (data?.error || data?.message) msg = data.error || data.message;
+                      } catch {}
+                      throw new Error(msg);
+                    }
                     setStudentResendMsg('Opt-in message sent to student.');
                     setStudentResendStatus('success');
                     setTimeout(() => {
@@ -303,7 +311,7 @@ function MatchPair({ match, onMatchDeleted }) {
                       setStudentResendStatus(null);
                     }, 3000);
                   } catch (err) {
-                    setStudentResendMsg('Failed to resend to student.');
+                    setStudentResendMsg(err?.message || 'Failed to resend to student.');
                     setStudentResendStatus('error');
                     setTimeout(() => {
                       setStudentResendMsg('');
