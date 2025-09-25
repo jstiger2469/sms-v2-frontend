@@ -160,21 +160,6 @@ function MatchPair({ match, onMatchDeleted }) {
               ) : (
                 <FaTimesCircle className="text-gray-400 ml-2" title="Mentor not opted in" />
               )}
-              {!match.mentorOptIn && (
-                <button
-                  onClick={async () => {
-                    try {
-                      await apiService.setOptIn(match._id, 'mentor', true);
-                      match.mentorOptIn = true;
-                    } catch (err) {
-                      setError('Failed to set mentor as opted-in');
-                    }
-                  }}
-                  className="ml-3 text-xs px-2 py-1 rounded border border-gray-300 hover:bg-gray-50"
-                >
-                  Set Opted-In
-                </button>
-              )}
             </div>
             <div className="text-sm text-gray-700 flex items-center gap-2">
               <label className="font-medium">Phone:</label>
@@ -268,21 +253,6 @@ function MatchPair({ match, onMatchDeleted }) {
                 <FaCheckCircle className="text-green-500 ml-2" title="Student opted in" />
               ) : (
                 <FaTimesCircle className="text-gray-400 ml-2" title="Student not opted in" />
-              )}
-              {!match.studentOptIn && (
-                <button
-                  onClick={async () => {
-                    try {
-                      await apiService.setOptIn(match._id, 'student', true);
-                      match.studentOptIn = true;
-                    } catch (err) {
-                      setError('Failed to set student as opted-in');
-                    }
-                  }}
-                  className="ml-3 text-xs px-2 py-1 rounded border border-gray-300 hover:bg-gray-50"
-                >
-                  Set Opted-In
-                </button>
               )}
             </div>
             <div className="text-sm text-gray-700 flex items-center gap-2">
