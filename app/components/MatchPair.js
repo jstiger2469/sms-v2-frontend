@@ -187,7 +187,9 @@ function MatchPair({ match, onMatchDeleted }) {
                   try {
                     setSavingMentor(true);
                     setError('');
-                    await apiService.updateMentorPhone(match.mentor?._id, mentorPhone);
+                    const digits = String(mentorPhone || '').replace(/\D/g, '');
+                    await apiService.updateMentorPhone(match.mentor?._id, digits);
+                    setMentorPhone(digits);
                   } catch (err) {
                     setError('Failed to update mentor phone');
                   } finally {
@@ -277,7 +279,9 @@ function MatchPair({ match, onMatchDeleted }) {
                   try {
                     setSavingStudent(true);
                     setError('');
-                    await apiService.updateStudentPhone(match.student?._id, studentPhone);
+                    const digits = String(studentPhone || '').replace(/\D/g, '');
+                    await apiService.updateStudentPhone(match.student?._id, digits);
+                    setStudentPhone(digits);
                   } catch (err) {
                     setError('Failed to update student phone');
                   } finally {
