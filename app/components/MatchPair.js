@@ -212,7 +212,15 @@ function MatchPair({ match, onMatchDeleted }) {
                     setMentorResendMsg('');
                     setMentorResendStatus(null);
                     setResendingMentor(true);
-                    await fetch(`/api/matches/${match._id}/resend-opt-in/mentor`, { method: 'POST' });
+                    const res = await fetch(`/api/matches/${match._id}/resend-opt-in/mentor`, { method: 'POST' });
+                    if (!res.ok) {
+                      let msg = 'Failed to resend to mentor.';
+                      try {
+                        const data = await res.json();
+                        if (data?.error || data?.message) msg = data.error || data.message;
+                      } catch {}
+                      throw new Error(msg);
+                    }
                     setMentorResendMsg('Opt-in message sent to mentor.');
                     setMentorResendStatus('success');
                     setTimeout(() => {
@@ -220,7 +228,7 @@ function MatchPair({ match, onMatchDeleted }) {
                       setMentorResendStatus(null);
                     }, 3000);
                   } catch (err) {
-                    setMentorResendMsg('Failed to resend to mentor.');
+                    setMentorResendMsg(err?.message || 'Failed to resend to mentor.');
                     setMentorResendStatus('error');
                     setTimeout(() => {
                       setMentorResendMsg('');
