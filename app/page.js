@@ -151,6 +151,22 @@ export default function Home() {
               </div>
             </Link>
 
+            <Link href="/pulse" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow ring-2 ring-red-100">
+              <div className="p-6">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg className="h-8 w-8 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </div>
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-gray-900">Network Pulse</h3>
+                    <p className="text-sm text-gray-500">AI Health & Staleness</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             {/*
             <Link href="/scheduler" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
               <div className="p-6">
