@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import Navigation from '../components/Navigation'
+import LandingPage from '../components/LandingPage' // Import the new landing page
 
 export default function Home() {
   const { user, error, isLoading } = useUser()
@@ -34,33 +35,12 @@ export default function Home() {
     )
   }
 
+  // If not authenticated, show the immersive Landing Page
   if (!user) {
-    return (
-      <main className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Welcome to SMS V2
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Mentor Management and Messaging System
-          </p>
-        </div>
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <div className="space-y-4">
-              <a
-                href="/auth/login"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Log in
-              </a>
-            </div>
-          </div>
-        </div>
-      </main>
-    )
+    return <LandingPage />
   }
 
+  // Authenticated Dashboard View
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
@@ -166,27 +146,9 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-
-            {/*
-            <Link href="/scheduler" className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow">
-              <div className="p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0">
-                    <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h3 className="text-lg font-medium text-gray-900">Scheduler</h3>
-                    <p className="text-sm text-gray-500">Schedule automated messages</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            */}
           </div>
         </div>
       </main>
     </div>
   )
-} 
+}
