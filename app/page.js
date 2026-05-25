@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import Navigation from '../components/Navigation'
-import LandingPage from '../components/LandingPage' // Import the new landing page
+import LandingPage from './components/LandingPage'
 
 export default function Home() {
   const { user, error, isLoading } = useUser()
