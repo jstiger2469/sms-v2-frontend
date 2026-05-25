@@ -144,12 +144,6 @@ export default function LandingPage() {
 
       {/* Feature Grid */}
       <section id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-gray-800">
-        <div className="max-w-2xl mb-16">
-          <div className="text-sm font-medium text-indigo-400 mb-3 uppercase tracking-widest">What&rsquo;s inside</div>
-          <h2 className="text-3xl lg:text-4xl font-bold leading-tight">
-            Built for the people who actually run mentorship programs.
-          </h2>
-        </div>
         <div className="grid md:grid-cols-3 gap-8">
           
           {/* Card 1 */}
