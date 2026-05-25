@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import Navigation from '@/components/Navigation'
 import AddMatchButton from '@/components/AddMatchButton'
@@ -13,28 +13,26 @@ export default function Matches() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const response = await fetch('/api/matches')
-        if (!response.ok) {
-          throw new Error('Failed to fetch matches')
-        }
-        const data = await response.json()
-        setMatches(data)
-        setFilteredMatches(data)
-      } catch (err) {
-        console.error('Error fetching matches:', err)
-        setError('Failed to load matches')
-      } finally {
-        setLoading(false)
+  const fetchMatches = useCallback(async () => {
+    try {
+      const response = await fetch('/api/matches')
+      if (!response.ok) {
+        throw new Error('Failed to fetch matches')
       }
+      const data = await response.json()
+      setMatches(data)
+      setFilteredMatches(data)
+    } catch (err) {
+      console.error('Error fetching matches:', err)
+      setError('Failed to load matches')
+    } finally {
+      setLoading(false)
     }
-
-    fetchMatches()
-    // Expose fetchMatches for refresh after delete
-    Matches.fetchMatches = fetchMatches
   }, [])
+
+  useEffect(() => {
+    fetchMatches()
+  }, [fetchMatches])
 
   // Filter matches based on search query
   useEffect(() => {
@@ -60,7 +58,7 @@ export default function Matches() {
   // Add a handler for match deletion
   const handleMatchDeleted = () => {
     setLoading(true)
-    Matches.fetchMatches()
+    fetchMatches()
   }
 
   if (loading) {
