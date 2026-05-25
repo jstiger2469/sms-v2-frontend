@@ -7,7 +7,7 @@ export default function LandingPage() {
   const [text, setText] = useState('')
   const [phase, setPhase] = useState('typing') // typing, routing, solved
   
-  const fullText = "#financial I need help with my Pell Grant..."
+  const fullText = "Hey, I have a question about my financial aid form..."
   
   useEffect(() => {
     if (phase === 'typing') {
@@ -107,19 +107,19 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Step 2: Processing */}
+              {/* Step 2: Match Lookup */}
               <div className={`transition-all duration-500 ${phase === 'routing' || phase === 'solved' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                 <div className="flex gap-3 items-center my-4">
                   <div className="h-px bg-gray-700 flex-1"></div>
-                  <div className="text-xs text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded">AI PROCESSING</div>
+                  <div className="text-xs text-indigo-400 bg-indigo-500/10 px-2 py-1 rounded">MATCH LOOKUP</div>
                   <div className="h-px bg-gray-700 flex-1"></div>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="bg-gray-900/50 p-2 rounded border border-gray-700 text-xs">
-                    <span className="text-gray-500">Sentiment:</span> <span className="text-yellow-400">Neutral</span>
+                    <span className="text-gray-500">From:</span> <span className="text-indigo-300">Student &middot; opted-in</span>
                   </div>
                   <div className="bg-gray-900/50 p-2 rounded border border-gray-700 text-xs">
-                    <span className="text-gray-500">Topic:</span> <span className="text-purple-400">#financial</span>
+                    <span className="text-gray-500">Match:</span> <span className="text-purple-400">Ms. Johnson</span>
                   </div>
                 </div>
               </div>
@@ -127,10 +127,10 @@ export default function LandingPage() {
               {/* Step 3: Result */}
               <div className={`transition-all duration-500 delay-100 ${phase === 'solved' ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                 <div className="mt-4 bg-green-500/10 border border-green-500/20 p-3 rounded-lg flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-black text-xs font-bold">✓</div>
+                  <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-black text-xs font-bold">&#10003;</div>
                   <div>
-                    <div className="text-green-400 font-semibold">Routed to Specialist</div>
-                    <div className="text-gray-400 text-xs">Match: Ms. Johnson (Financial Aid)</div>
+                    <div className="text-green-400 font-semibold">Delivered to mentor</div>
+                    <div className="text-gray-400 text-xs">Ms. Johnson &middot; logged to thread</div>
                   </div>
                 </div>
               </div>
