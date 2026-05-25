@@ -41,16 +41,19 @@ export default function LandingPage() {
 
       {/* Nav */}
       <nav className="relative z-10 flex justify-between items-center max-w-7xl mx-auto px-6 py-6">
-        <div className="text-2xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-          SMS V2
+        <div className="flex items-baseline gap-2">
+          <div className="text-2xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            Seedling SMS
+          </div>
+          <div className="hidden sm:block text-xs uppercase tracking-widest text-gray-500">Mentor Admin Console</div>
         </div>
         <div className="space-x-8 hidden md:block">
-          <a href="#features" className="text-sm font-medium hover:text-indigo-400 transition-colors">Platform</a>
-          <a href="#network" className="text-sm font-medium hover:text-indigo-400 transition-colors">Network</a>
-          <a href="#intelligence" className="text-sm font-medium hover:text-indigo-400 transition-colors">Intelligence</a>
+          <a href="#features" className="text-sm font-medium hover:text-indigo-400 transition-colors">Features</a>
+          <a href="#routing" className="text-sm font-medium hover:text-indigo-400 transition-colors">Routing</a>
+          <a href="#pulse" className="text-sm font-medium hover:text-indigo-400 transition-colors">Pulse</a>
         </div>
         <a href="/auth/login" className="px-5 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all text-sm font-medium backdrop-blur-sm">
-          Login
+          Sign In
         </a>
       </nav>
 
@@ -59,27 +62,31 @@ export default function LandingPage() {
         
         {/* Left: Copy */}
         <div className="space-y-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-400 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+            For Seedling Mentor Directors &amp; program staff
+          </div>
           <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-            The Operating System for <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Human Connection</span>.
+            The command center for <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Seedling mentorship</span>.
           </h1>
           <p className="text-xl text-gray-400 max-w-lg leading-relaxed">
-            Scale your mentorship program from 10 to 10,000 matches. AI-powered routing, sentiment analysis, and guaranteed engagement infrastructure.
+            Every match, every message, every milestone &mdash; in one place. Coordinate your mentor network and spot relationships that need attention before they fade.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a href="/auth/login" className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-all font-semibold text-lg shadow-lg shadow-indigo-500/25">
-              Start Building
+              Sign In
             </a>
-            <button className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all font-semibold text-lg backdrop-blur-sm">
-              View API Docs
-            </button>
+            <a href="#features" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all font-semibold text-lg backdrop-blur-sm text-center">
+              See how it works
+            </a>
           </div>
         </div>
 
         {/* Right: Interactive Simulator */}
-        <div className="relative">
+        <div id="routing" className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur-2xl opacity-20"></div>
           <div className="relative bg-gray-800/80 backdrop-blur-xl border border-gray-700 rounded-2xl p-6 shadow-2xl">
-            
+
             {/* Simulation Header */}
             <div className="flex items-center justify-between mb-6 border-b border-gray-700 pb-4">
               <div className="flex items-center gap-2">
@@ -87,7 +94,7 @@ export default function LandingPage() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
-              <div className="text-xs font-mono text-gray-500">LIVE ROUTING ENGINE</div>
+              <div className="text-xs font-mono text-gray-500">MENTOR ROUTING</div>
             </div>
 
             {/* Simulation Body */}
@@ -136,19 +143,25 @@ export default function LandingPage() {
       </main>
 
       {/* Feature Grid */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-gray-800">
+      <section id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-gray-800">
+        <div className="max-w-2xl mb-16">
+          <div className="text-sm font-medium text-indigo-400 mb-3 uppercase tracking-widest">What&rsquo;s inside</div>
+          <h2 className="text-3xl lg:text-4xl font-bold leading-tight">
+            Built for the people who actually run mentorship programs.
+          </h2>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
           
           {/* Card 1 */}
-          <div className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 transition-all hover:-translate-y-1 group">
+          <div id="pulse" className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 transition-all hover:-translate-y-1 group">
             <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-6 group-hover:bg-purple-500/30 transition-colors">
               <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">AI Intelligence</h3>
+            <h3 className="text-xl font-bold mb-3">Network Pulse</h3>
             <p className="text-gray-400 leading-relaxed">
-              Real-time sentiment analysis detects crisis moments before they happen. Health scores track relationship vitality automatically.
+              Spot fading relationships before they disengage. Health scores update automatically from every text exchange, and stale matches surface to the top.
             </p>
           </div>
 
@@ -159,9 +172,9 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">Network Routing</h3>
+            <h3 className="text-xl font-bold mb-3">Smart Routing</h3>
             <p className="text-gray-400 leading-relaxed">
-              Break the 1:1 limit. Students route questions to Financial, Career, or Academic specialists via simple hashtags.
+              Students reach the right adult in seconds. A simple <span className="font-mono text-indigo-300">#financial</span>, <span className="font-mono text-indigo-300">#academic</span>, or <span className="font-mono text-indigo-300">#career</span> tag routes their text to the matching specialist mentor.
             </p>
           </div>
 
@@ -169,12 +182,12 @@ export default function LandingPage() {
           <div className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 transition-all hover:-translate-y-1 group">
             <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 group-hover:bg-blue-500/30 transition-colors">
               <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold mb-3">Platform API</h3>
+            <h3 className="text-xl font-bold mb-3">Built for program staff</h3>
             <p className="text-gray-400 leading-relaxed">
-              White-label our engine. Use our API to integrate full-featured mentorship into your own hospital, school, or non-profit app.
+              Add new matches, resend opt-in invites, edit phone numbers, and read every conversation thread in one place. Designed around the daily work of Mentor Directors.
             </p>
           </div>
 
@@ -183,7 +196,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-gray-800 py-12 text-center text-gray-500 text-sm">
-        <p>© 2025 SMS V2. Built for the future of connection.</p>
+        <p>&copy; 2026 Seedling Mentors &middot; Internal Mentor Admin Console</p>
       </footer>
 
       {/* CSS for custom animations */}
@@ -206,4 +219,8 @@ export default function LandingPage() {
     </div>
   )
 }
+
+
+
+
 
