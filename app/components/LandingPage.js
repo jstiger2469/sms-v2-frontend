@@ -48,9 +48,7 @@ export default function LandingPage() {
           <div className="hidden sm:block text-xs uppercase tracking-widest text-gray-500">Mentor Admin Console</div>
         </div>
         <div className="space-x-8 hidden md:block">
-          <a href="#features" className="text-sm font-medium hover:text-indigo-400 transition-colors">Features</a>
-          <a href="#routing" className="text-sm font-medium hover:text-indigo-400 transition-colors">Routing</a>
-          <a href="#pulse" className="text-sm font-medium hover:text-indigo-400 transition-colors">Pulse</a>
+          <a href="#routing" className="text-sm font-medium hover:text-indigo-400 transition-colors">How it works</a>
         </div>
         <a href="/auth/login" className="px-5 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all text-sm font-medium backdrop-blur-sm">
           Sign In
@@ -76,7 +74,7 @@ export default function LandingPage() {
             <a href="/auth/login" className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-all font-semibold text-lg shadow-lg shadow-indigo-500/25">
               Sign In
             </a>
-            <a href="#features" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all font-semibold text-lg backdrop-blur-sm text-center">
+            <a href="#routing" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all font-semibold text-lg backdrop-blur-sm text-center">
               See how it works
             </a>
           </div>
@@ -141,52 +139,6 @@ export default function LandingPage() {
           </div>
         </div>
       </main>
-
-      {/* Feature Grid */}
-      <section id="features" className="relative z-10 max-w-7xl mx-auto px-6 py-24 border-t border-gray-800">
-        <div className="grid md:grid-cols-3 gap-8">
-          
-          {/* Card 1 */}
-          <div id="pulse" className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-purple-500/50 transition-all hover:-translate-y-1 group">
-            <div className="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-6 group-hover:bg-purple-500/30 transition-colors">
-              <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3">Network Pulse</h3>
-            <p className="text-gray-400 leading-relaxed">
-              Spot fading relationships before they disengage. Health scores update automatically from every text exchange, and stale matches surface to the top.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-indigo-500/50 transition-all hover:-translate-y-1 group">
-            <div className="w-12 h-12 rounded-lg bg-indigo-500/20 flex items-center justify-center mb-6 group-hover:bg-indigo-500/30 transition-colors">
-              <svg className="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3">Smart Routing</h3>
-            <p className="text-gray-400 leading-relaxed">
-              Students reach the right adult in seconds. A simple <span className="font-mono text-indigo-300">#financial</span>, <span className="font-mono text-indigo-300">#academic</span>, or <span className="font-mono text-indigo-300">#career</span> tag routes their text to the matching specialist mentor.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="p-8 rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 transition-all hover:-translate-y-1 group">
-            <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 group-hover:bg-blue-500/30 transition-colors">
-              <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold mb-3">Built for program staff</h3>
-            <p className="text-gray-400 leading-relaxed">
-              Add new matches, resend opt-in invites, edit phone numbers, and read every conversation thread in one place. Designed around the daily work of Mentor Directors.
-            </p>
-          </div>
-
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="border-t border-gray-800 py-12 text-center text-gray-500 text-sm">
