@@ -82,19 +82,20 @@ function AddMatchModal({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-2/3">
-        <h2 className="text-xl font-bold mb-4">Create New Match</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" translate="no">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-2/3" translate="no">
+        <h2 className="text-xl font-bold mb-4" translate="no">Create New Match</h2>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6" translate="no">
           {/* Student Form */}
           <div>
             <h3 className="text-lg font-semibold mb-2">Student Details</h3>
             {['firstName', 'lastName', 'phone'].map((field) => (
-              <div className="mb-4" key={field}>
+              <div className="mb-4" key={field} translate="no">
                 <label
                   htmlFor={field}
                   className="block text-sm font-medium mb-2 capitalize"
+                  translate="no"
                 >
                   {field}
                 </label>
@@ -116,10 +117,11 @@ function AddMatchModal({ onClose }) {
           <div>
             <h3 className="text-lg font-semibold mb-2">Mentor Details</h3>
             {['firstName', 'lastName', 'phone'].map((field) => (
-              <div className="mb-4" key={field}>
+              <div className="mb-4" key={field} translate="no">
                 <label
                   htmlFor={field}
                   className="block text-sm font-medium mb-2 capitalize"
+                  translate="no"
                 >
                   {field}
                 </label>
