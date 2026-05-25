@@ -74,9 +74,6 @@ export default function LandingPage() {
             <a href="/auth/login" className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-all font-semibold text-lg shadow-lg shadow-indigo-500/25">
               Sign In
             </a>
-            <a href="#routing" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all font-semibold text-lg backdrop-blur-sm text-center">
-              See how it works
-            </a>
           </div>
         </div>
 
