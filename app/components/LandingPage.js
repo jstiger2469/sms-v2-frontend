@@ -47,9 +47,6 @@ export default function LandingPage() {
           </div>
           <div className="hidden sm:block text-xs uppercase tracking-widest text-gray-500">Mentor Admin Console</div>
         </div>
-        <div className="space-x-8 hidden md:block">
-          <a href="#routing" className="text-sm font-medium hover:text-indigo-400 transition-colors">How it works</a>
-        </div>
         <a href="/auth/login" className="px-5 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all text-sm font-medium backdrop-blur-sm">
           Sign In
         </a>
