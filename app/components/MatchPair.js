@@ -3,6 +3,7 @@ import DeleteMatchButton from './DeleteMatchButton';
 import MatchService from '../services/match.service.js';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { apiService } from '@/lib/api';
+import { phoneDigits, isValidPhone, formatPhone } from '@/lib/phone';
 
 function MatchPair({ match, onMatchDeleted }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -166,7 +167,8 @@ function MatchPair({ match, onMatchDeleted }) {
               <input
                 type="tel"
                 className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-48"
-                value={mentorPhone}
+                value={formatPhone(mentorPhone)}
+                placeholder="(555) 123-4567"
                 onChange={(e) => setMentorPhone(e.target.value)}
               />
               <button
@@ -174,7 +176,11 @@ function MatchPair({ match, onMatchDeleted }) {
                   try {
                     setSavingMentor(true);
                     setError('');
-                    const digits = String(mentorPhone || '').replace(/\D/g, '');
+                    const digits = phoneDigits(mentorPhone);
+                    if (!isValidPhone(digits)) {
+                      setError('Enter a 10-digit US phone number.');
+                      return;
+                    }
                     const res = await fetch(`/api/mentors/${match.mentor?._id}`, {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json' },
@@ -260,7 +266,8 @@ function MatchPair({ match, onMatchDeleted }) {
               <input
                 type="tel"
                 className="border border-gray-300 rounded px-2 py-1 text-gray-700 w-48"
-                value={studentPhone}
+                value={formatPhone(studentPhone)}
+                placeholder="(555) 123-4567"
                 onChange={(e) => setStudentPhone(e.target.value)}
               />
               <button
@@ -268,7 +275,11 @@ function MatchPair({ match, onMatchDeleted }) {
                   try {
                     setSavingStudent(true);
                     setError('');
-                    const digits = String(studentPhone || '').replace(/\D/g, '');
+                    const digits = phoneDigits(studentPhone);
+                    if (!isValidPhone(digits)) {
+                      setError('Enter a 10-digit US phone number.');
+                      return;
+                    }
                     const res = await fetch(`/api/students/${match.student?._id}`, {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json' },

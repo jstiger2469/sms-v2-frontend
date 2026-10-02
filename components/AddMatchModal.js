@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { phoneDigits, isValidPhone, formatPhone } from '@/lib/phone'
 
 function AddMatchModal({ onClose }) {
   const [studentData, setStudentData] = useState({
@@ -25,15 +26,14 @@ function AddMatchModal({ onClose }) {
     }
   }
 
-  const isValidPhone = (phone) => typeof phone === 'string' && phone.replace(/\D/g, '').length >= 10;
-  const studentPhoneError = studentData.phone && !isValidPhone(studentData.phone) ? 'Phone must have at least 10 digits.' : '';
-  const mentorPhoneError = mentorData.phone && !isValidPhone(mentorData.phone) ? 'Phone must have at least 10 digits.' : '';
+  const studentPhoneError = studentData.phone && !isValidPhone(studentData.phone) ? 'Enter a 10-digit US phone number.' : '';
+  const mentorPhoneError = mentorData.phone && !isValidPhone(mentorData.phone) ? 'Enter a 10-digit US phone number.' : '';
 
   const handleSubmit = async () => {
     setLoading(true)
     setError('')
     if (!isValidPhone(studentData.phone) || !isValidPhone(mentorData.phone)) {
-      setError('Both student and mentor must have valid phone numbers with at least 10 digits.')
+      setError('Both student and mentor need a valid 10-digit US phone number.')
       setLoading(false)
       return
     }
@@ -41,11 +41,11 @@ function AddMatchModal({ onClose }) {
       // Normalize phone numbers to digits only
       const normalizedStudentData = {
         ...studentData,
-        phone: studentData.phone.replace(/\D/g, ''),
+        phone: phoneDigits(studentData.phone),
       };
       const normalizedMentorData = {
         ...mentorData,
-        phone: mentorData.phone.replace(/\D/g, ''),
+        phone: phoneDigits(mentorData.phone),
       };
       const data = { studentData: normalizedStudentData, mentorData: normalizedMentorData };
       const response = await fetch('/api/matches', {
@@ -74,13 +74,6 @@ function AddMatchModal({ onClose }) {
 
   const isFormValid = isValidPhone(studentData.phone) && isValidPhone(mentorData.phone) && studentData.firstName && studentData.lastName && mentorData.firstName && mentorData.lastName;
 
-  function formatPhoneNumber(value) {
-    const phone = value.replace(/\D/g, '');
-    if (phone.length <= 3) return phone;
-    if (phone.length <= 6) return `(${phone.slice(0,3)}) ${phone.slice(3)}`;
-    return `(${phone.slice(0,3)}) ${phone.slice(3,6)}-${phone.slice(6,10)}`;
-  }
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" translate="no">
       <div className="bg-white rounded-lg shadow-lg p-6 w-2/3" translate="no">
@@ -103,7 +96,7 @@ function AddMatchModal({ onClose }) {
                   type="text"
                   name={field}
                   className="w-full p-2 border rounded-md"
-                  value={field === 'phone' ? formatPhoneNumber(studentData[field]) : studentData[field]}
+                  value={field === 'phone' ? formatPhone(studentData[field]) : studentData[field]}
                   onChange={(e) => handleInputChange(e, 'student')}
                 />
                 {field === 'phone' && studentPhoneError && (
@@ -129,7 +122,7 @@ function AddMatchModal({ onClose }) {
                   type="text"
                   name={field}
                   className="w-full p-2 border rounded-md"
-                  value={field === 'phone' ? formatPhoneNumber(mentorData[field]) : mentorData[field]}
+                  value={field === 'phone' ? formatPhone(mentorData[field]) : mentorData[field]}
                   onChange={(e) => handleInputChange(e, 'mentor')}
                 />
                 {field === 'phone' && mentorPhoneError && (
