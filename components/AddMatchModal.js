@@ -57,7 +57,8 @@ function AddMatchModal({ onClose }) {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to create match')
+        const body = await response.json().catch(() => ({}))
+        throw new Error(body.error || body.message || 'Failed to create match')
       }
 
       alert('Match created successfully!')
@@ -65,7 +66,7 @@ function AddMatchModal({ onClose }) {
       // Refresh the page to show the new match
       window.location.reload()
     } catch (err) {
-      setError('Failed to create match. Please check the input and try again.')
+      setError(err.message || 'Failed to create match. Please check the input and try again.')
       console.error(err)
     } finally {
       setLoading(false)
@@ -74,90 +75,109 @@ function AddMatchModal({ onClose }) {
 
   const isFormValid = isValidPhone(studentData.phone) && isValidPhone(mentorData.phone) && studentData.firstName && studentData.lastName && mentorData.firstName && mentorData.lastName;
 
+  const sections = [
+    { key: 'mentor', title: 'Mentor', data: mentorData, phoneError: mentorPhoneError },
+    { key: 'student', title: 'Student', data: studentData, phoneError: studentPhoneError },
+  ]
+  const fields = [
+    { name: 'firstName', label: 'First name', autoComplete: 'given-name' },
+    { name: 'lastName', label: 'Last name', autoComplete: 'family-name' },
+    { name: 'phone', label: 'Mobile phone', autoComplete: 'tel', type: 'tel', placeholder: '(555) 123-4567' },
+  ]
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" translate="no">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-2/3" translate="no">
-        <h2 className="text-xl font-bold mb-4" translate="no">Create New Match</h2>
+    // Explicit colors throughout: globals.css flips text to white in OS dark mode,
+    // which made every label invisible on this white panel.
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-gray-900/60 p-0 sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-match-title"
+      translate="no"
+      onKeyDown={(e) => e.key === 'Escape' && !loading && onClose()}
+      onClick={(e) => e.target === e.currentTarget && !loading && onClose()}
+    >
+      <div className="w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-white text-gray-900 rounded-t-2xl sm:rounded-2xl shadow-2xl [color-scheme:light]">
+        <div className="px-6 pt-6 pb-4 border-b border-gray-200">
+          <h2 id="add-match-title" className="text-xl font-semibold text-gray-900">Create new match</h2>
+          <p className="mt-1 text-sm text-gray-600">
+            Both people will get a welcome text asking them to reply START.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 gap-6" translate="no">
-          {/* Student Form */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Student Details</h3>
-            {['firstName', 'lastName', 'phone'].map((field) => (
-              <div className="mb-4" key={field} translate="no">
-                <label
-                  htmlFor={field}
-                  className="block text-sm font-medium mb-2 capitalize"
-                  translate="no"
-                >
-                  {field}
-                </label>
-                <input
-                  type="text"
-                  name={field}
-                  className="w-full p-2 border rounded-md"
-                  value={field === 'phone' ? formatPhone(studentData[field]) : studentData[field]}
-                  onChange={(e) => handleInputChange(e, 'student')}
-                />
-                {field === 'phone' && studentPhoneError && (
-                  <span className="text-red-500 text-xs">{studentPhoneError}</span>
-                )}
-              </div>
+        <form
+          className="px-6 py-5"
+          onSubmit={(e) => { e.preventDefault(); if (isFormValid && !loading) handleSubmit() }}
+          noValidate
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {sections.map(({ key, title, data, phoneError }) => (
+              <fieldset key={key} className="space-y-4">
+                <legend className="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-3">{title}</legend>
+                {fields.map((f) => {
+                  const id = `${key}-${f.name}`
+                  const isPhone = f.name === 'phone'
+                  const fieldError = isPhone ? phoneError : ''
+                  return (
+                    <div key={id}>
+                      <label htmlFor={id} className="block text-sm font-medium text-gray-800 mb-1">
+                        {f.label}
+                      </label>
+                      <input
+                        id={id}
+                        name={f.name}
+                        type={f.type || 'text'}
+                        inputMode={isPhone ? 'tel' : undefined}
+                        autoComplete={f.autoComplete}
+                        placeholder={f.placeholder}
+                        value={isPhone ? formatPhone(data[f.name]) : data[f.name]}
+                        onChange={(e) => handleInputChange(e, key)}
+                        aria-invalid={!!fieldError}
+                        aria-describedby={fieldError ? `${id}-error` : undefined}
+                        disabled={loading}
+                        className={`block w-full rounded-lg border bg-white px-3 py-2.5 text-base text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 disabled:bg-gray-50 ${
+                          fieldError
+                            ? 'border-red-400 focus:border-red-500 focus:ring-red-200'
+                            : 'border-gray-300 focus:border-blue-500 focus:ring-blue-200'
+                        }`}
+                      />
+                      {fieldError && (
+                        <p id={`${id}-error`} className="mt-1 text-xs text-red-600">{fieldError}</p>
+                      )}
+                    </div>
+                  )
+                })}
+              </fieldset>
             ))}
           </div>
 
-          {/* Mentor Form */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Mentor Details</h3>
-            {['firstName', 'lastName', 'phone'].map((field) => (
-              <div className="mb-4" key={field} translate="no">
-                <label
-                  htmlFor={field}
-                  className="block text-sm font-medium mb-2 capitalize"
-                  translate="no"
-                >
-                  {field}
-                </label>
-                <input
-                  type="text"
-                  name={field}
-                  className="w-full p-2 border rounded-md"
-                  value={field === 'phone' ? formatPhone(mentorData[field]) : mentorData[field]}
-                  onChange={(e) => handleInputChange(e, 'mentor')}
-                />
-                {field === 'phone' && mentorPhoneError && (
-                  <span className="text-red-500 text-xs">{mentorPhoneError}</span>
-                )}
-              </div>
-            ))}
+          {error && (
+            <div role="alert" className="mt-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
+
+          <div className="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={loading}
+              className="w-full sm:w-auto rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading || !isFormValid}
+              className="w-full sm:w-auto rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-300"
+            >
+              {loading ? 'Creating…' : 'Create match'}
+            </button>
           </div>
-        </div>
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <div className="flex justify-end space-x-4 mt-6">
-          <button
-            type="button"
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md"
-            onClick={onClose}
-            disabled={loading}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className={`px-4 py-2 rounded-md text-white ${
-              loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
-            }`}
-            disabled={loading || !isFormValid}
-          >
-            {loading ? 'Creating...' : 'Create Match'}
-          </button>
-        </div>
+        </form>
       </div>
     </div>
   )
 }
 
-export default AddMatchModal 
+export default AddMatchModal

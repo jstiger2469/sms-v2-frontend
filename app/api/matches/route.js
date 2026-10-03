@@ -23,9 +23,10 @@ export async function POST(request) {
     return NextResponse.json(result, { status: 201 })
   } catch (err) {
     console.error('Error creating match:', err)
+    // Pass the backend's reason through (e.g. duplicate phone) instead of a generic error
     return NextResponse.json(
-      { error: 'Error creating match' },
-      { status: 500 }
+      { error: err.serverMessage || 'Error creating match' },
+      { status: err.status || 500 }
     )
   }
 } 
